@@ -1,0 +1,25 @@
+conda create -n capstone
+activate capstone
+deactivate
+
+cuda 위치 > C:\Users\sfsfk\AppData\Local\Temp\CUDA
+
+2019.12.24
+학습 속도 위해서 gpu사용
+하지만 tf2에서 tensorflow- gpu 사용 시 placeholder 인식을 못함
+따라서 
+
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
+위 코드를 통해 v1로 동작시킨다.
+batch iterator도 v2와 v1의 동작이 다르다
+
+v1 : make_initializable_iterator() 사용
+v2 : __itor__() 사용 (이건 작동하는지 알 수 없음)
+* 반드시 iterator 초기화 진행할 것 
+
+loss가 nan 발생 issue
+경사하강학습상황에서 발생 확인
+adam 테스트 중 matmul메모리 폭파
+batch size 줄이고 학습 모델 크기도 좀 손봐야 할듯
