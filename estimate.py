@@ -134,28 +134,34 @@ def dcnn(x_image): # softmax 사용해서 loss 섞나?
     inception_2_a = inception(h_pool3, 480, 192, 96, 208, 16, 48, 64)
     print('inception_2_a shape : ',inception_2_a.get_shape())
 
-    # #inception 2_b  > 7 -> 7 // 512 -> 512 (160 + 224 + 64 + 64)
-    # inception_2_b = inception(inception_2_a, 512, 160, 112, 224, 24, 64, 64)
+    #inception 2_b  > 7 -> 7 // 512 -> 512 (160 + 224 + 64 + 64)
+    inception_2_b = inception(inception_2_a, 512, 160, 112, 224, 24, 64, 64)
 
-    # #inception 2_c  > 7 -> 7 // 512 -> 512 (128 + 256 + 64 + 64)
-    # inception_2_c = inception(inception_2_b, 512, 128, 128, 256, 24, 64, 64)
+    #inception 2_c  > 7 -> 7 // 512 -> 512 (128 + 256 + 64 + 64)
+    inception_2_c = inception(inception_2_b, 512, 128, 128, 256, 24, 64, 64)
 
     #inception 2_d  > 7 -> 7 // 512 -> 528 (112 + 288 + 64 + 64)
-    inception_2_d = inception(inception_2_a, 512, 112, 144, 288, 32, 64, 64)
+    inception_2_d = inception(inception_2_c, 512, 112, 144, 288, 32, 64, 64)
     print('inception_2_d shape : ',inception_2_d.get_shape())
 
     #inception 2_e  > 7 -> 7 // 528 -> 832 (256 + 320 + 128 + 128)
     inception_2_e = inception(inception_2_d, 528, 256, 160, 320, 32, 128, 128)
     print('inception_2_e shape : ',inception_2_e.get_shape())
 
+    aux_flatten = tf.reshape(inception_2_e, [-1, 7*7*832])
+    aux_W_fc1 = tf.Variable(tf.truncated_normal(shape=[7*7*832, 5], stddev=5e-2))
+    aux_b_fc1 = tf.Variable(tf.constant(0.1, shape=[5]))
+
+    auxiliary = tf.matmul(aux_flatten, aux_W_fc1) + aux_b_fc1
+
     # # max pool 4   > 14 -> 7 // 832 -> 832
     # h_pool4 = tf.nn.max_pool(inception_2_e, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME')
 
-    # #inception 3_a  > 7 -> 7 // 832 -> 832 (256 + 320 + 128 + 128)
-    # inception_3_a = inception(h_pool4, 832, 256, 160, 320, 32, 128, 128)
+    #inception 3_a  > 7 -> 7 // 832 -> 832 (256 + 320 + 128 + 128)
+    inception_3_a = inception(inception_2_e, 832, 256, 160, 320, 32, 128, 128)
 
     #inception 3_b  > 7 -> 7 // 832 -> 1024 (384 + 384 + 128 + 128)
-    inception_3_b = inception(inception_2_e, 832, 384, 192, 384, 48, 128, 128)
+    inception_3_b = inception(inception_3_a, 832, 384, 192, 384, 48, 128, 128)
     print('inception_3_b shape : ',inception_3_b.get_shape())
 
     # avg pool 5   > 7 -> 1 // 1024 -> 1024
@@ -172,7 +178,7 @@ def dcnn(x_image): # softmax 사용해서 loss 섞나?
     logits = tf.matmul(flatten, W_fc1) + b_fc1
     y_pred = tf.nn.softmax(logits)
 
-    return y_pred, logits
+    return y_pred
 
 
 
@@ -216,10 +222,7 @@ x = tf.placeholder(tf.float32, shape=[None, image_width, image_height, image_cha
 y = tf.placeholder(tf.float32, shape=[None, image_result])
 keep_prob = tf.placeholder(tf.float32)
 
-y_pred, logits = dcnn(x)
-loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=logits))
-train_step = tf.train.AdamOptimizer(1e-3).minimize(loss)
-
+y_pred = dcnn(x)
 correct_prediction = tf.equal(tf.argmax(y_pred, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
