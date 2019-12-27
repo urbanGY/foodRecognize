@@ -35,7 +35,7 @@ def set_input():
             else :
                 num = str(index)
             file_name = img_name + num + '.jpg'
-            path = f'image/img/{category}/{kind}/{file_name}'
+            path = f'image/test_img/{category}/{kind}/{file_name}'
             path_list.append(path)
             label_list.append(label)
     return path_list, label_list
@@ -51,63 +51,9 @@ def read_path_list(path_list, label_list):
             label.append(label_list[i])
     return img, label
 
-def cnn(x):
-    x_image = x
-
-    W_conv1 = tf.Variable(tf.truncated_normal(shape=[10, 10, 3, 64], stddev=5e-2))
-    b_conv1 = tf.Variable(tf.constant(0.1, shape=[64]))
-    # h_conv1 = tf.nn.relu(tf.matmul(x_image, W_conv1) + b_conv1)
-    h_conv1 = tf.nn.relu(tf.nn.conv2d(x_image, W_conv1, strides=[1, 1, 1, 1], padding='SAME') + b_conv1)
-
-    h_pool1 = tf.nn.max_pool(h_conv1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-    # h_drop1 = tf.nn.dropout(h_pool1, keep_prob)
-
-
-    W_conv2 = tf.Variable(tf.truncated_normal(shape=[10, 10, 64, 128], stddev=5e-2))
-    b_conv2 = tf.Variable(tf.constant(0.1, shape=[128]))
-    # h_conv2 = tf.nn.relu(tf.matmul(h_pool1, W_conv2) + b_conv2)
-    h_conv2 = tf.nn.relu(tf.nn.conv2d(h_pool1, W_conv2, strides=[1, 1, 1, 1], padding='SAME') + b_conv2)
-
-    h_pool2 = tf.nn.max_pool(h_conv2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-
-
-    W_conv3 = tf.Variable(tf.truncated_normal(shape=[5, 5, 128, 256], stddev=5e-2))
-    b_conv3 = tf.Variable(tf.constant(0.1, shape=[256]))
-    # h_conv3 = tf.nn.relu(tf.matmul(h_pool2, W_conv3) + b_conv3)
-    h_conv3 = tf.nn.relu(tf.nn.conv2d(h_pool2, W_conv3, strides=[1, 1, 1, 1], padding='SAME') + b_conv3)
-
-    h_pool3 = tf.nn.max_pool(h_conv3, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
-
-
-    W_conv4 = tf.Variable(tf.truncated_normal(shape=[5, 5, 256, 384], stddev=5e-2))
-    b_conv4 = tf.Variable(tf.constant(0.1, shape=[384]))
-    # h_conv4 = tf.nn.relu(tf.matmul(h_pool3, W_conv4) + b_conv4)
-    h_conv4 = tf.nn.relu(tf.nn.conv2d(h_pool3, W_conv4, strides=[1, 1, 1, 1], padding='SAME') + b_conv4)
-
-
-    W_conv5 = tf.Variable(tf.truncated_normal(shape=[5, 5, 384, 384], stddev=5e-2))
-    b_conv5 = tf.Variable(tf.constant(0.1, shape=[384]))
-    # h_conv5 = tf.nn.relu(tf.matmul(h_pool4, W_conv5) + b_conv5)
-    h_conv5 = tf.nn.relu(tf.nn.conv2d(h_conv4, W_conv5, strides=[1, 1, 1, 1], padding='SAME') + b_conv5)
-
-    W_fc1 = tf.Variable(tf.truncated_normal(shape=[12 * 12 * 384, 512], stddev=5e-2))
-    b_fc1 = tf.Variable(tf.constant(0.1, shape=[512]))
-    h_conv5_flat = tf.reshape(h_conv5, [-1, 12*12*384])
-    h_fc1 = tf.nn.relu(tf.matmul(h_conv5_flat, W_fc1) + b_fc1)
-    h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
-
-    W_fc2 = tf.Variable(tf.truncated_normal(shape=[512, 256], stddev=5e-2))
-    b_fc2 = tf.Variable(tf.constant(0.1, shape=[256]))
-    h_fc2 = tf.nn.relu(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
-
-
-    W_fc3 = tf.Variable(tf.truncated_normal(shape=[256, 5], stddev=5e-2))
-    b_fc3 = tf.Variable(tf.constant(0.1, shape=[5]))
-    logits = tf.matmul(h_fc2,W_fc3) + b_fc3
-
-    y_pred = tf.nn.softmax(logits)
-
-    return y_pred, logits
+def get_name(index):
+    list = ['라면','막국수','짜장면','짬뽕','칼국수']
+    return list[index]
 
 def inception(x, input_channel, conv_1_out, conv_3_reduce_out, conv_3_out, conv_5_reduce_out, conv_5_out, pool_proj_out):
     with tf.variable_scope('inception') as scope:
@@ -143,78 +89,6 @@ def inception(x, input_channel, conv_1_out, conv_3_reduce_out, conv_3_out, conv_
 
         concat = tf.concat([conv_1, conv_3, conv_5, pool_proj], axis=3)
         return concat
-
-
-# def dcnn(x_image): # softmax 사용해서 loss 섞나?
-#     # name > data with/height input size -> output size // channel input size -> output size
-#
-#     # conv 1    > 224 -> 112 // 3 -> 64
-#     W_conv1 = tf.Variable(tf.truncated_normal(shape=[7, 7, 3, 64], stddev=5e-2))
-#     b_conv1 = tf.Variable(tf.constant(0.1, shape=[64]))
-#     h_conv1 = tf.nn.relu(tf.nn.conv2d(x_image, W_conv1, strides=[1, 2, 2, 1], padding='SAME') + b_conv1)
-#
-#     # max pool 1   > 112 -> 56 // 64 -> 64
-#     h_pool1 = tf.nn.max_pool(h_conv1, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME')
-#
-#     # conv 2    > 56 -> 56 // 64 -> 192
-#     W_conv2_1 = tf.Variable(tf.truncated_normal(shape=[1, 1, 64, 64], stddev=5e-2))
-#     b_conv2_1 = tf.Variable(tf.constant(0.1, shape=[64]))
-#     h_conv2_1 = tf.nn.relu(tf.nn.conv2d(h_pool1, W_conv2_1, strides=[1, 1, 1, 1], padding='SAME') + b_conv2_1)
-#
-#     W_conv2 = tf.Variable(tf.truncated_normal(shape=[3, 3, 64, 192], stddev=5e-2))
-#     b_conv2 = tf.Variable(tf.constant(0.1, shape=[192]))
-#     h_conv2 = tf.nn.relu(tf.nn.conv2d(h_conv2_1, W_conv2, strides=[1, 1, 1, 1], padding='SAME') + b_conv2)
-#
-#     # max pool 2   > 56 -> 28 // 192 -> 192
-#     h_pool2 = tf.nn.max_pool(h_conv2, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME')
-#
-#     #inception 1_a  > 28 -> 28 // 192 -> 256 (64 + 128 + 32 + 32)
-#     inception_1_a = inception(h_pool2, 192, 64, 96, 128, 16, 32, 32)
-#
-#     #inception 1_b  > 28 -> 28 // 256 -> 480 (128 + 192 + 96 + 64)
-#     inception_1_b = inception(inception_1_a, 256, 128, 128, 192, 32, 96, 64)
-#
-#     # max pool 3   > 28 -> 14 // 480 -> 480
-#     h_pool3 = tf.nn.max_pool(inception_1_b, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME')
-#
-#     #inception 2_a  > 14 -> 14 // 480 -> 512 (192 + 208 + 48 + 64)
-#     inception_2_a = inception(h_pool3, 480, 192, 96, 208, 16, 48, 64)
-#
-#     #inception 2_b  > 14 -> 14 // 512 -> 512 (160 + 224 + 64 + 64)
-#     inception_2_b = inception(inception_2_a, 512, 160, 112, 224, 24, 64, 64)
-#
-#     #inception 2_c  > 14 -> 14 // 512 -> 512 (128 + 256 + 64 + 64)
-#     inception_2_c = inception(inception_2_b, 512, 128, 128, 256, 24, 64, 64)
-#
-#     #inception 2_d  > 14 -> 14 // 512 -> 528 (112 + 288 + 64 + 64)
-#     inception_2_d = inception(inception_2_c, 512, 112, 144, 288, 32, 64, 64)
-#
-#     #inception 2_e  > 14 -> 14 // 528 -> 832 (256 + 320 + 128 + 128)
-#     inception_2_e = inception(inception_2_d, 528, 256, 160, 320, 32, 128, 128)
-#
-#     # max pool 4   > 14 -> 7 // 832 -> 832
-#     h_pool4 = tf.nn.max_pool(inception_2_e, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME')
-#
-#     #inception 3_a  > 7 -> 7 // 832 -> 832 (256 + 320 + 128 + 128)
-#     inception_3_a = inception(h_pool4, 832, 256, 160, 320, 32, 128, 128)
-#
-#     #inception 3_b  > 7 -> 7 // 832 -> 1024 (384 + 384 + 128 + 128)
-#     inception_3_b = inception(inception_3_a, 832, 384, 192, 384, 48, 128, 128)
-#
-#     # avg pool 5   > 7 -> 1 // 1024 -> 1024
-#     h_pool5 = tf.nn.avg_pool(inception_3_b, ksize = [1, 7, 7, 1], strides=[1, 1, 1, 1], padding='SAME')
-#
-#     # drop out 40% keep_prob:0.6
-#     dropout = tf.nn.dropout(h_pool5, keep_prob)
-#     flatten = tf.reshape(dropout, [-1, 1*1*1024])
-#
-#     W_fc1 = tf.Variable(tf.truncated_normal(shape=[1 * 1 * 1024, 5], stddev=5e-2))
-#     b_fc1 = tf.Variable(tf.constant(0.1, shape=[5]))
-#
-#     logits = tf.matmul(flatten, W_fc1) + b_fc1
-#     y_pred = tf.nn.softmax(logits)
-#
-#     return y_pred, logits
 
 def dcnn(x_image): # softmax 사용해서 loss 섞나?
     # name > data with/height input size -> output size // channel input size -> output size
@@ -306,6 +180,7 @@ def dcnn(x_image): # softmax 사용해서 loss 섞나?
 
 path_list, tag_list = set_input()
 img_list, label_list = read_path_list(path_list, tag_list)
+input_len = len(img_list)
 print("img list len : %d , label list len : %s"%(len(img_list), len(label_list)))
 print("img width : %d , label shape : %s"%(len(img_list[0]), len(label_list[0])))
 
@@ -324,8 +199,8 @@ print("img and label np array setting ready!")
 
 dataset = tf.data.Dataset.from_tensor_slices((img,label))
 dataset = dataset.repeat()
-dataset = dataset.shuffle(6500)
-dataset = dataset.batch(12)
+dataset = dataset.shuffle(1000)
+dataset = dataset.batch(input_len)
 
 iterator = dataset.make_initializable_iterator()
 # iterator = dataset.__iter__()
@@ -354,12 +229,16 @@ model_path = 'model/version_1/ver_1.ckpt'
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     sess.run(iterator.initializer)
-    for i in range(11):
-        print('*', end='')
-        _x, _y = sess.run(next_element)
-        if i%10 == 0:
-            train_accuracy = sess.run(accuracy, feed_dict={x:_x, y:_y, keep_prob:1.0})
-            train_loss = sess.run(loss, feed_dict={x:_x, y:_y, keep_prob:1.0})
-            print("\nstep %d  : train accuracy : %.4f, function loss : %.4f"%(i,train_accuracy,train_loss))
-        sess.run(train_step, feed_dict={x:_x, y:_y, keep_prob: 0.9})
-    saver.save(sess, model_path)
+    saver.restore(sess, model_path)
+
+    _x, _y = sess.run(next_element)
+    test_accuracy = sess.run(accuracy, feed_dict={x:_x, y:_y, keep_prob:1.0})
+    pred = sess.run(tf.argmax(y_pred, 1), feed_dict={x:_x, keep_prob:1.0})
+    answer = sess.run(tf.argmax(y, 1), feed_dict={y:_y, keep_prob:1.0})
+    for i in range(input_len):
+        print("classification %d step ) answer : %s  -  prediction : %s"%(i,get_name(answer[i]),get_name(pred[i])))
+    # for i in range(input_len):
+    #
+    #     print("classification %d step ) answer : %s |  prediction : %s"%(get_name(answer),get_name(pred)))
+
+    print("\n accuracy : %.4f"%(test_accuracy))
