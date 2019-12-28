@@ -1,5 +1,5 @@
 """
-학습 모듈
+서버에 붙는 실행 모듈
 """
 
 import tensorflow.compat.v1 as tf
@@ -8,65 +8,6 @@ import cv2
 import numpy as np
 import os
 import json
-print('tensorflow version : ', tf.__version__)
-print(tf.test.is_gpu_available())
-
-class readyDataError(Exception):
-    def __str__(self):
-        return "*** data set is invalid ***\n"
-
-def make_onehot(length, index):
-    tmp = []
-    for i in range(length):
-        tmp.append(0)
-    tmp[index] = 1
-    return tmp
-
-def set_input():
-    path_list = []
-    label_list = []
-    with open('input_data/input.json') as file:
-        json_data = json.load(file)
-        input_list = json_data['input_list']
-        input_len = len(input_list)
-        input_index = 0
-        for input in input_list:
-            category = input['category']
-            kind = input['kind']
-            img_name = input['img_name']
-            label = make_onehot(input_len, input_index)
-            input_index += 1
-            print("category : %s , kind : %s , img code : %s read start!"%(category,kind,img_name))
-            for index in range(1000):
-                if index < 10:
-                    num = '000'+str(index)
-                elif index < 100:
-                    num = '00'+str(index)
-                elif index < 1000:
-                    num = '0'+str(index)
-                else :
-                    num = str(index)
-                file_name = img_name + num + '.jpg'
-                path = f'image/test_cut_img/{category}/{kind}/{file_name}'
-                path_list.append(path)
-                label_list.append(label)
-
-    return path_list, label_list
-
-def read_path_list(path_list, label_list):
-    img = []
-    label = []
-    for i in range(len(path_list)):
-        path = path_list[i]
-        if os.path.isfile(path):
-            tmp = np.float32(cv2.imread(path, cv2.IMREAD_COLOR))
-            img.append(tmp)
-            label.append(label_list[i])
-    return img, label
-
-def get_name(index):
-    list = ['라면','막국수','짜장면','짬뽕','칼국수']
-    return list[index]
 
 def inception(x, input_channel, conv_1_out, conv_3_reduce_out, conv_3_out, conv_5_reduce_out, conv_5_out, pool_proj_out):
     with tf.variable_scope('inception') as scope:
@@ -193,67 +134,37 @@ def dcnn(x_image): # softmax 사용해서 loss 섞나?
 
     return y_pred
 
-
-
 #******************************************************************#
+def get_name(index):
+    list = ['라면','자장면','짬뽕','된장찌개','김치찌개','순두부찌개']
+    return list[index]
 
-path_list, tag_list = set_input()
-img_list, label_list = read_path_list(path_list, tag_list)
-input_len = len(img_list)
-print("img list len : %d , label list len : %s"%(len(img_list), len(label_list)))
-print("img width : %d , label shape : %s"%(len(img_list[0]), len(label_list[0])))
+def print_prediction(y_prediction):
+    list = ['라면','자장면','짬뽕','된장찌개','김치찌개','순두부찌개']
+    for i in range(len(y_prediction)):
+        print('%s : %.3f'%(list[i],y_prediction[i]*100))
 
-if len(img_list) != len(label_list):
-    raise readyDataError()
-# img = np.stack(read_path_list(path_list))
+def classification(image):
+    image_width = 112
+    image_height = 112
+    image_channel = 3
+    image_result = 6 #이건 학습으로 들어간 음식 종류의 숫자
 
-img = np.asarray(img_list, dtype=np.float32)
-label = np.asarray(label_list, dtype=np.float32)
+    x = tf.placeholder(tf.float32, shape=[None, image_width, image_height, image_channel])
+    y = tf.placeholder(tf.float32, shape=[None, image_result])
+    keep_prob = tf.placeholder(tf.float32)
 
-# img = tf.convert_to_tensor(np_img, np.float32)
-# img_list = img_list.astype('float32')
+    input_image = np.float32(cv2.imread(image, cv2.IMREAD_COLOR))
+    y_pred = dcnn(x)
 
+    saver = tf.train.Saver()
+    model_path = 'model/ver_1.ckpt'
 
-print("img and label np array setting ready!")
-
-dataset = tf.data.Dataset.from_tensor_slices((img,label))
-dataset = dataset.repeat()
-dataset = dataset.shuffle(1000)
-dataset = dataset.batch(input_len)
-
-iterator = dataset.make_initializable_iterator()
-# iterator = dataset.__iter__()
-next_element = iterator.get_next()
-print("batch is ready!")
-
-image_width = 112
-image_height = 112
-image_channel = 3
-image_result = 6 #이건 학습으로 들어간 음식 종류의 숫자
-
-x = tf.placeholder(tf.float32, shape=[None, image_width, image_height, image_channel])
-y = tf.placeholder(tf.float32, shape=[None, image_result])
-keep_prob = tf.placeholder(tf.float32)
-
-y_pred = dcnn(x)
-correct_prediction = tf.equal(tf.argmax(y_pred, 1), tf.argmax(y, 1))
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-
-saver = tf.train.Saver()
-model_path = 'model/'
-file_path = '/version_2/ver_1.ckpt'
-
-for i in range(6000,10001,1000):
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
-        sess.run(iterator.initializer)
-        saver.restore(sess, model_path+str(i)+file_path)
-
-        _x, _y = sess.run(next_element)
-        test_accuracy = sess.run(accuracy, feed_dict={x: _x, y: _y, keep_prob: 1.0})
-        # pred = sess.run(tf.argmax(y_pred, 1), feed_dict={x: _x, keep_prob: 1.0})
-        # answer = sess.run(tf.argmax(y, 1), feed_dict={y: _y, keep_prob: 1.0})
-        # for i in range(input_len):
-        #     print("classification %d step ) answer : %s  -  prediction : %s"%(i,get_name(answer[i]),get_name(pred[i])))
-
-        print("\n\n\nstep : %d   - accuracy : %.4f\n\n" % (i,test_accuracy))
+        saver.restore(sess, model_path)
+        prediction = sess.run(y_pred, feed_dict={x: input_image, keep_prob: 1.0})
+        index = sess.run(tf.argmax(y_pred, 1), feed_dict={x: input_image, keep_prob: 1.0})
+        print_prediction(prediction)
+        answer = get_name(index)
+        return answer

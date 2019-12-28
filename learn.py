@@ -7,6 +7,7 @@ tf.disable_v2_behavior()
 import cv2
 import numpy as np
 import os
+import json
 print('tensorflow version : ', tf.__version__)
 print(tf.test.is_gpu_available())
 
@@ -287,8 +288,8 @@ def dcnn(x_image): # softmax 사용해서 loss 섞나?
     print('inception_2_e shape : ',inception_2_e.get_shape())
 
     aux_flatten = tf.reshape(inception_2_e, [-1, 7*7*832])
-    aux_W_fc1 = tf.Variable(tf.truncated_normal(shape=[7*7*832, 5], stddev=5e-2))
-    aux_b_fc1 = tf.Variable(tf.constant(0.1, shape=[5]))
+    aux_W_fc1 = tf.Variable(tf.truncated_normal(shape=[7*7*832, 6], stddev=5e-2))
+    aux_b_fc1 = tf.Variable(tf.constant(0.1, shape=[6]))
 
     auxiliary = tf.matmul(aux_flatten, aux_W_fc1) + aux_b_fc1
 
@@ -310,8 +311,8 @@ def dcnn(x_image): # softmax 사용해서 loss 섞나?
     dropout = tf.nn.dropout(h_pool5, keep_prob)
     flatten = tf.reshape(dropout, [-1, 1*1*1024])
 
-    W_fc1 = tf.Variable(tf.truncated_normal(shape=[1 * 1 * 1024, 5], stddev=5e-2))
-    b_fc1 = tf.Variable(tf.constant(0.1, shape=[5]))
+    W_fc1 = tf.Variable(tf.truncated_normal(shape=[1 * 1 * 1024, 6], stddev=5e-2))
+    b_fc1 = tf.Variable(tf.constant(0.1, shape=[6]))
 
     logits = tf.matmul(flatten, W_fc1) + b_fc1
     y_pred = tf.nn.softmax(logits)
@@ -342,7 +343,7 @@ print("img and label np array setting ready!")
 
 dataset = tf.data.Dataset.from_tensor_slices((img,label))
 dataset = dataset.repeat()
-dataset = dataset.shuffle(6500)
+dataset = dataset.shuffle(10000)
 dataset = dataset.batch(32)
 
 iterator = dataset.make_initializable_iterator()
@@ -353,7 +354,7 @@ print("batch is ready!")
 image_width = 112
 image_height = 112
 image_channel = 3
-image_result = 5 #이건 학습으로 들어간 음식 종류의 숫자
+image_result = 6 #이건 학습으로 들어간 음식 종류의 숫자
 
 x = tf.placeholder(tf.float32, shape=[None, image_width, image_height, image_channel])
 y = tf.placeholder(tf.float32, shape=[None, image_result])
@@ -369,8 +370,8 @@ correct_prediction = tf.equal(tf.argmax(y_pred, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 saver = tf.train.Saver()
-model_path = 'model/version_1/'
-model_name = '/ver_1.ckpt'
+model_path = 'model/'
+model_name = '/version_1/ver_1.ckpt'
 
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
@@ -380,8 +381,9 @@ with tf.Session() as sess:
         _x, _y = sess.run(next_element)
         if i%100 == 0:
             train_accuracy = sess.run(accuracy, feed_dict={x:_x, y:_y, keep_prob:1.0})
-            train_loss = sess.run(train_loss, feed_dict={x:_x, y:_y, keep_prob:1.0})
-            print("\nstep %d  : train accuracy : %.4f, function loss : %.4f"%(i,train_accuracy,train_loss))
+            loss_end = sess.run(loss, feed_dict={x:_x, y:_y, keep_prob:1.0})
+            loss_mid = sess.run(auxiliary_loss, feed_dict={x: _x, y: _y, keep_prob: 1.0})
+            print("\nstep %d  : train accuracy : %.4f, function loss end : %.4f, function loss mid : %.4f"%(i,train_accuracy,loss_end,loss_mid))
         sess.run(train_step, feed_dict={x:_x, y:_y, keep_prob: 0.6})
-        if i%1000 == 0:
+        if (i == 0 or i > 5000) and i%1000 == 0:
             saver.save(sess, model_path+str(i)+model_name)
