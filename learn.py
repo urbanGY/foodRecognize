@@ -14,30 +14,42 @@ class readyDataError(Exception):
     def __str__(self):
         return "*** data set is invalid ***\n"
 
+def make_onehot(length, index):
+    tmp = []
+    for i in range(length):
+        tmp.append(0)
+    tmp[index] = 1
+    return tmp
+
 def set_input():
     path_list = []
     label_list = []
+    with open('input_data/input.json') as file:
+        json_data = json.load(file)
+        input_list = json_data['input_list']
+        input_len = len(input_list)
+        input_index = 0
+        for input in input_list:
+            category = input['category']
+            kind = input['kind']
+            img_name = input['img_name']
+            label = make_onehot(input_len, input_index)
+            input_index += 1
+            print("category : %s , kind : %s , img code : %s read start!"%(category,kind,img_name))
+            for index in range(1000):
+                if index < 10:
+                    num = '000'+str(index)
+                elif index < 100:
+                    num = '00'+str(index)
+                elif index < 1000:
+                    num = '0'+str(index)
+                else :
+                    num = str(index)
+                file_name = img_name + num + '.jpg'
+                path = f'image/img/{category}/{kind}/{file_name}'
+                path_list.append(path)
+                label_list.append(label)
 
-    input_list = [['noodle','ramen','Img_050_', [1,0,0,0,0] ],['noodle','mak_noodle','Img_051_', [0,1,0,0,0]],['noodle','jjajang','Img_057_', [0,0,1,0,0]],['noodle','jjambbong','Img_058_', [0,0,0,1,0]],['noodle','kal_noodle','Img_060_', [0,0,0,0,1]] ]
-    for input in input_list:
-        category = input[0]
-        kind = input[1]
-        img_name = input[2]
-        label = input[3]
-        print("category : %s , kind : %s , img code : %s read start!"%(category,kind,img_name))
-        for index in range(1000):
-            if index < 10:
-                num = '000'+str(index)
-            elif index < 100:
-                num = '00'+str(index)
-            elif index < 1000:
-                num = '0'+str(index)
-            else :
-                num = str(index)
-            file_name = img_name + num + '.jpg'
-            path = f'image/img/{category}/{kind}/{file_name}'
-            path_list.append(path)
-            label_list.append(label)
     return path_list, label_list
 
 def read_path_list(path_list, label_list):
@@ -331,7 +343,7 @@ print("img and label np array setting ready!")
 dataset = tf.data.Dataset.from_tensor_slices((img,label))
 dataset = dataset.repeat()
 dataset = dataset.shuffle(6500)
-dataset = dataset.batch(12)
+dataset = dataset.batch(32)
 
 iterator = dataset.make_initializable_iterator()
 # iterator = dataset.__iter__()
@@ -349,25 +361,27 @@ keep_prob = tf.placeholder(tf.float32)
 
 y_pred, logits, auxiliary = dcnn(x)
 loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=logits))
-# auxiliary_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=auxiliary))
-# loss = (loss*0.8)+(auxiliary_loss*0.2)
-train_step = tf.train.AdamOptimizer(1e-3).minimize(loss)
+auxiliary_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=auxiliary))
+train_loss = (loss*0.8)+(auxiliary_loss*0.2)
+train_step = tf.train.AdamOptimizer(1e-3).minimize(train_loss)
 
 correct_prediction = tf.equal(tf.argmax(y_pred, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 saver = tf.train.Saver()
-model_path = 'model/version_1/ver_1.ckpt'
+model_path = 'model/version_1/'
+model_name = '/ver_1.ckpt'
 
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     sess.run(iterator.initializer)
-    for i in range(11):
+    for i in range(10001):
         print('*', end='')
         _x, _y = sess.run(next_element)
-        if i%10 == 0:
+        if i%100 == 0:
             train_accuracy = sess.run(accuracy, feed_dict={x:_x, y:_y, keep_prob:1.0})
-            train_loss = sess.run(loss, feed_dict={x:_x, y:_y, keep_prob:1.0})
+            train_loss = sess.run(train_loss, feed_dict={x:_x, y:_y, keep_prob:1.0})
             print("\nstep %d  : train accuracy : %.4f, function loss : %.4f"%(i,train_accuracy,train_loss))
         sess.run(train_step, feed_dict={x:_x, y:_y, keep_prob: 0.6})
-    saver.save(sess, model_path)
+        if i%1000 == 0:
+            saver.save(sess, model_path+str(i)+model_name)

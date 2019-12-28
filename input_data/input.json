@@ -1,0 +1,44 @@
+{
+  "input_list" : [
+    {
+      "category" : "noodle",
+      "kind" : "ramen",
+      "img_name" : "Img_050_"
+    },
+    {
+      "category" : "noodle",
+      "kind" : "mak_noodle",
+      "img_name" : "Img_051_"
+    },
+    {
+      "category" : "noodle",
+      "kind" : "jjajang",
+      "img_name" : "Img_057_"
+    },
+    {
+      "category" : "noodle",
+      "kind" : "jjambbong",
+      "img_name" : "Img_058_"
+    },
+    {
+      "category" : "noodle",
+      "kind" : "kal_noodle",
+      "img_name" : "Img_060_"
+    },
+    {
+      "category" : "jjigae",
+      "kind" : "doenjang",
+      "img_name" : "Img_122_"
+    },
+    {
+      "category" : "jjigae",
+      "kind" : "kimchi",
+      "img_name" : "Img_119_"
+    },
+    {
+      "category" : "jjigae",
+      "kind" : "softtofu",
+      "img_name" : "Img_123_"
+    }
+  ]
+}
