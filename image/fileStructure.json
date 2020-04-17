@@ -1,0 +1,904 @@
+{
+  "inputList" : [
+      {
+        "category" : "면",
+        "name" : "라면",
+        "code" : "Img_050_",
+        "label" : "1"
+      },
+      {
+          "category" : "면",
+          "name" : "막국수",
+          "code" : "Img_051_",
+          "label" : "2"
+      },
+      {
+          "category" : "면",
+          "name" : "물냉면",
+          "code" : "Img_052_",
+          "label" : "3"
+      },
+      {
+          "category" : "면",
+          "name" : "비빔냉면",
+          "code" : "Img_053_",
+          "label" : "4"
+      },
+      {
+          "category" : "면",
+          "name" : "수제비",
+          "code" : "Img_054_",
+          "label" : "5"
+      },
+      {
+          "category" : "면",
+          "name" : "열무국수",
+          "code" : "Img_055_",
+          "label" : "6"
+      },
+      {
+          "category" : "면",
+          "name" : "잔치국수",
+          "code" : "Img_056_",
+          "label" : "7"
+      },
+      {
+          "category" : "면",
+          "name" : "짜장면",
+          "code" : "Img_057_",
+          "label" : "8"
+      },
+      {
+          "category" : "면",
+          "name" : "짬뽕",
+          "code" : "Img_058_",
+          "label" : "9"
+      },
+      {
+          "category" : "면",
+          "name" : "쫄면",
+          "code" : "Img_059_",
+          "label" : "10"
+      },
+      {
+          "category" : "면",
+          "name" : "칼국수",
+          "code" : "Img_060_",
+          "label" : "11"
+      },
+      {
+          "category" : "면",
+          "name" : "콩국수",
+          "code" : "Img_061_",
+          "label" : "12"
+      },
+      {
+          "category" : "찌개",
+          "name" : "김치찌개",
+          "code" : "Img_119_",
+          "label" : "13"
+      },
+      {
+          "category" : "찌개",
+          "name" : "닭계장",
+          "code" : "Img_120_",
+          "label" : "14"
+      },
+      {
+          "category" : "찌개",
+          "name" : "동태찌개",
+          "code" : "Img_121_",
+          "label" : "15"
+      },
+      {
+          "category" : "찌개",
+          "name" : "된장찌개",
+          "code" : "Img_122_",
+          "label" : "16"
+      },
+      {
+          "category" : "찌개",
+          "name" : "순두부찌개",
+          "code" : "Img_123_",
+          "label" : "17"
+      },
+      {
+          "category" : "구이",
+          "name" : "갈비구이",
+          "code" : "Img_000_",
+          "label" : "18"
+      },
+      {
+          "category" : "구이",
+          "name" : "갈치구이",
+          "code" : "Img_001_",
+          "label" : "19"
+      },
+      {
+          "category" : "구이",
+          "name" : "고등어구이",
+          "code" : "Img_002_",
+          "label" : "20"
+      },
+      {
+          "category" : "구이",
+          "name" : "곱창구이",
+          "code" : "Img_003_",
+          "label" : "21"
+      },
+      {
+          "category" : "구이",
+          "name" : "닭갈비",
+          "code" : "Img_004_",
+          "label" : "22"
+      },
+      {
+          "category" : "구이",
+          "name" : "더덕구이",
+          "code" : "Img_005_",
+          "label" : "23"
+      },
+      {
+          "category" : "구이",
+          "name" : "떡갈비",
+          "code" : "Img_006_",
+          "label" : "24"
+      },
+      {
+          "category" : "구이",
+          "name" : "불고기",
+          "code" : "Img_007_",
+          "label" : "25"
+      },
+      {
+          "category" : "구이",
+          "name" : "삼겹살",
+          "code" : "Img_008_",
+          "label" : "26"
+      },
+      {
+          "category" : "구이",
+          "name" : "장어구이",
+          "code" : "Img_009_",
+          "label" : "27"
+      },
+      {
+          "category" : "구이",
+          "name" : "조개구이",
+          "code" : "Img_010_",
+          "label" : "28"
+      },
+      {
+          "category" : "구이",
+          "name" : "조기구이",
+          "code" : "Img_011_",
+          "label" : "29"
+      },
+      {
+          "category" : "구이",
+          "name" : "황태구이",
+          "code" : "Img_012_",
+          "label" : "30"
+      },
+      {
+          "category" : "구이",
+          "name" : "훈제오리",
+          "code" : "Img_013_",
+          "label" : "31"
+      },
+      {
+          "category" : "국",
+          "name" : "계란국",
+          "code" : "Img_014_",
+          "label" : "32"
+      },
+      {
+          "category" : "국",
+          "name" : "떡국_만두국",
+          "code" : "Img_015_",
+          "label" : "33"
+      },
+      {
+          "category" : "국",
+          "name" : "무국",
+          "code" : "Img_016_",
+          "label" : "34"
+      },
+      {
+          "category" : "국",
+          "name" : "미역국",
+          "code" : "Img_017_",
+          "label" : "35"
+      },
+      {
+          "category" : "국",
+          "name" : "북엇국",
+          "code" : "Img_018_",
+          "label" : "36"
+      },
+      {
+          "category" : "국",
+          "name" : "시래기국",
+          "code" : "Img_019_",
+          "label" : "37"
+      },
+      {
+          "category" : "국",
+          "name" : "육개장",
+          "code" : "Img_020_",
+          "label" : "38"
+      },
+      {
+          "category" : "국",
+          "name" : "콩나물국",
+          "code" : "Img_021_",
+          "label" : "39"
+      },
+      {
+          "category" : "기타",
+          "name" : "과메기",
+          "code" : "Img_022_",
+          "label" : "40"
+      },
+      {
+          "category" : "기타",
+          "name" : "양념치킨",
+          "code" : "Img_023_",
+          "label" : "41"
+      },
+      {
+          "category" : "기타",
+          "name" : "젓갈",
+          "code" : "Img_024_",
+          "label" : "42"
+      },
+      {
+          "category" : "기타",
+          "name" : "콩자반",
+          "code" : "Img_025_",
+          "label" : "43"
+      },
+      {
+          "category" : "기타",
+          "name" : "편육",
+          "code" : "Img_026_",
+          "label" : "44"
+      },
+      {
+          "category" : "기타",
+          "name" : "피자",
+          "code" : "Img_027_",
+          "label" : "45"
+      },
+      {
+          "category" : "기타",
+          "name" : "후라이드치킨",
+          "code" : "Img_028_",
+          "label" : "46"
+      },
+      {
+          "category" : "김치",
+          "name" : "갓김치",
+          "code" : "Img_029_",
+          "label" : "47"
+      },
+      {
+          "category" : "김치",
+          "name" : "깍두기",
+          "code" : "Img_030_",
+          "label" : "48"
+      },
+      {
+          "category" : "김치",
+          "name" : "나박김치",
+          "code" : "Img_031_",
+          "label" : "49"
+      },
+      {
+          "category" : "김치",
+          "name" : "무생채",
+          "code" : "Img_032_",
+          "label" : "50"
+      },
+      {
+          "category" : "김치",
+          "name" : "배추김치",
+          "code" : "Img_033_",
+          "label" : "51"
+      },
+      {
+          "category" : "김치",
+          "name" : "백김치",
+          "code" : "Img_034_",
+          "label" : "52"
+      },
+      {
+          "category" : "김치",
+          "name" : "부추김치",
+          "code" : "Img_035_",
+          "label" : "53"
+      },
+      {
+          "category" : "김치",
+          "name" : "열무김치",
+          "code" : "Img_036_",
+          "label" : "54"
+      },
+      {
+          "category" : "김치",
+          "name" : "오이소박이",
+          "code" : "Img_037_",
+          "label" : "55"
+      },
+      {
+          "category" : "김치",
+          "name" : "총각김치",
+          "code" : "Img_038_",
+          "label" : "56"
+      },
+      {
+          "category" : "김치",
+          "name" : "파김치",
+          "code" : "Img_039_",
+          "label" : "57"
+      },
+      {
+          "category" : "나물",
+          "name" : "가지볶음",
+          "code" : "Img_040_",
+          "label" : "58"
+      },
+      {
+          "category" : "나물",
+          "name" : "고사리나물",
+          "code" : "Img_041_",
+          "label" : "59"
+      },
+      {
+          "category" : "나물",
+          "name" : "미역줄기볶음",
+          "code" : "Img_042_",
+          "label" : "60"
+      },
+      {
+          "category" : "나물",
+          "name" : "숙주나물",
+          "code" : "Img_043_",
+          "label" : "61"
+      },
+      {
+          "category" : "나물",
+          "name" : "시금치나물",
+          "code" : "Img_044_",
+          "label" : "62"
+      },
+      {
+          "category" : "나물",
+          "name" : "애호박볶음",
+          "code" : "Img_045_",
+          "label" : "63"
+      },
+      {
+          "category" : "떡",
+          "name" : "경단",
+          "code" : "Img_046_",
+          "label" : "64"
+      },
+      {
+          "category" : "떡",
+          "name" : "꿀떡",
+          "code" : "Img_047_",
+          "label" : "65"
+      },
+      {
+          "category" : "떡",
+          "name" : "송편",
+          "code" : "Img_048_",
+          "label" : "66"
+      },
+      {
+          "category" : "만두",
+          "name" : "만두",
+          "code" : "Img_049_",
+          "label" : "67"
+      },
+      {
+          "category" : "무침",
+          "name" : "꽈리고추무침",
+          "code" : "Img_062_",
+          "label" : "68"
+      },
+      {
+          "category" : "무침",
+          "name" : "도라지무침",
+          "code" : "Img_063_",
+          "label" : "69"
+      },
+      {
+          "category" : "무침",
+          "name" : "도토리묵",
+          "code" : "Img_064_",
+          "label" : "70"
+      },
+      {
+          "category" : "무침",
+          "name" : "잡채",
+          "code" : "Img_065_",
+          "label" : "71"
+      },
+      {
+          "category" : "무침",
+          "name" : "콩나물무침",
+          "code" : "Img_066_",
+          "label" : "72"
+      },
+      {
+          "category" : "무침",
+          "name" : "홍어무침",
+          "code" : "Img_067_",
+          "label" : "73"
+      },
+      {
+          "category" : "무침",
+          "name" : "회무침",
+          "code" : "Img_068_",
+          "label" : "74"
+      },
+      {
+          "category" : "밥",
+          "name" : "김밥",
+          "code" : "Img_069_",
+          "label" : "75"
+      },
+      {
+          "category" : "밥",
+          "name" : "김치볶음밥",
+          "code" : "Img_070_",
+          "label" : "76"
+      },
+      {
+          "category" : "밥",
+          "name" : "누룽지",
+          "code" : "Img_071_",
+          "label" : "77"
+      },
+      {
+          "category" : "밥",
+          "name" : "비빔밥",
+          "code" : "Img_072_",
+          "label" : "78"
+      },
+      {
+          "category" : "밥",
+          "name" : "새우볶음밥",
+          "code" : "Img_073_",
+          "label" : "79"
+      },
+      {
+          "category" : "밥",
+          "name" : "알밥",
+          "code" : "Img_074_",
+          "label" : "80"
+      },
+      {
+          "category" : "밥",
+          "name" : "유부초밥",
+          "code" : "Img_075_",
+          "label" : "81"
+      },
+      {
+          "category" : "밥",
+          "name" : "잡곡밥",
+          "code" : "Img_076_",
+          "label" : "82"
+      },
+      {
+          "category" : "밥",
+          "name" : "주먹밥",
+          "code" : "Img_077_",
+          "label" : "83"
+      },
+      {
+          "category" : "볶음",
+          "name" : "감자채볶음",
+          "code" : "Img_078_",
+          "label" : "84"
+      },
+      {
+          "category" : "볶음",
+          "name" : "건새우볶음",
+          "code" : "Img_079_",
+          "label" : "85"
+      },
+      {
+          "category" : "볶음",
+          "name" : "고추장진미채볶음",
+          "code" : "Img_080_",
+          "label" : "86"
+      },
+      {
+          "category" : "볶음",
+          "name" : "두부김치",
+          "code" : "Img_081_",
+          "label" : "87"
+      },
+      {
+          "category" : "볶음",
+          "name" : "떡볶이",
+          "code" : "Img_082_",
+          "label" : "88"
+      },
+      {
+          "category" : "볶음",
+          "name" : "라볶이",
+          "code" : "Img_083_",
+          "label" : "89"
+      },
+      {
+          "category" : "볶음",
+          "name" : "멸치볶음",
+          "code" : "Img_084_",
+          "label" : "90"
+      },
+      {
+          "category" : "볶음",
+          "name" : "소세지볶음",
+          "code" : "Img_085_",
+          "label" : "91"
+      },
+      {
+          "category" : "볶음",
+          "name" : "어묵볶음",
+          "code" : "Img_086_",
+          "label" : "92"
+      },
+      {
+          "category" : "볶음",
+          "name" : "오징어채볶음",
+          "code" : "Img_087_",
+          "label" : "93"
+      },
+      {
+          "category" : "볶음",
+          "name" : "제육볶음",
+          "code" : "Img_088_",
+          "label" : "94"
+      },
+      {
+          "category" : "볶음",
+          "name" : "주꾸미볶음",
+          "code" : "Img_089_",
+          "label" : "95"
+      },
+      {
+          "category" : "쌈",
+          "name" : "보쌈",
+          "code" : "Img_090_",
+          "label" : "96"
+      },
+      {
+          "category" : "음청류",
+          "name" : "수정과",
+          "code" : "Img_091_",
+          "label" : "97"
+      },
+      {
+          "category" : "음청류",
+          "name" : "식혜",
+          "code" : "Img_092_",
+          "label" : "98"
+      },
+      {
+          "category" : "장",
+          "name" : "간장게장",
+          "code" : "Img_093_",
+          "label" : "99"
+      },
+      {
+          "category" : "장",
+          "name" : "양념게장",
+          "code" : "Img_094_",
+          "label" : "100"
+      },
+      {
+          "category" : "장아찌",
+          "name" : "깻잎장아찌",
+          "code" : "Img_095_",
+          "label" : "101"
+      },
+      {
+          "category" : "적",
+          "name" : "떡꼬치",
+          "code" : "Img_096_",
+          "label" : "102"
+      },
+      {
+          "category" : "전",
+          "name" : "감자전",
+          "code" : "Img_097_",
+          "label" : "103"
+      },
+      {
+          "category" : "전",
+          "name" : "계란말이",
+          "code" : "Img_098_",
+          "label" : "104"
+      },
+      {
+          "category" : "전",
+          "name" : "계란후라이",
+          "code" : "Img_099_",
+          "label" : "105"
+      },
+      {
+          "category" : "전",
+          "name" : "김치전",
+          "code" : "Img_100_",
+          "label" : "106"
+      },
+      {
+          "category" : "전",
+          "name" : "동그랑땡",
+          "code" : "Img_101_",
+          "label" : "107"
+      },
+      {
+          "category" : "전",
+          "name" : "생선전",
+          "code" : "Img_102_",
+          "label" : "108"
+      },
+      {
+          "category" : "전",
+          "name" : "파전",
+          "code" : "Img_103_",
+          "label" : "109"
+      },
+      {
+          "category" : "전",
+          "name" : "호박전",
+          "code" : "Img_104_",
+          "label" : "110"
+      },
+      {
+          "category" : "전골",
+          "name" : "곱창전골",
+          "code" : "Img_105_",
+          "label" : "111"
+      },
+      {
+          "category" : "조림",
+          "name" : "갈치조림",
+          "code" : "Img_106_",
+          "label" : "112"
+      },
+      {
+          "category" : "조림",
+          "name" : "감자조림",
+          "code" : "Img_107_",
+          "label" : "113"
+      },
+      {
+          "category" : "조림",
+          "name" : "고등어조림",
+          "code" : "Img_108_",
+          "label" : "114"
+      },
+      {
+          "category" : "조림",
+          "name" : "꽁치조림",
+          "code" : "Img_109_",
+          "label" : "115"
+      },
+      {
+          "category" : "조림",
+          "name" : "두부조림",
+          "code" : "Img_110_",
+          "label" : "116"
+      },
+      {
+          "category" : "조림",
+          "name" : "땅콩조림",
+          "code" : "Img_111_",
+          "label" : "117"
+      },
+      {
+          "category" : "조림",
+          "name" : "메추리알장조림",
+          "code" : "Img_112_",
+          "label" : "118"
+      },
+      {
+          "category" : "조림",
+          "name" : "연근조림",
+          "code" : "Img_113_",
+          "label" : "119"
+      },
+      {
+          "category" : "조림",
+          "name" : "우엉조림",
+          "code" : "Img_114_",
+          "label" : "120"
+      },
+      {
+          "category" : "조림",
+          "name" : "장조림",
+          "code" : "Img_115_",
+          "label" : "121"
+      },
+      {
+          "category" : "조림",
+          "name" : "코다리조림",
+          "code" : "Img_116_",
+          "label" : "122"
+      },
+      {
+          "category" : "죽",
+          "name" : "전복죽",
+          "code" : "Img_117_",
+          "label" : "123"
+      },
+      {
+          "category" : "죽",
+          "name" : "호박죽",
+          "code" : "Img_118_",
+          "label" : "124"
+      },
+      {
+          "category" : "찜",
+          "name" : "갈비찜",
+          "code" : "Img_124_",
+          "label" : "125"
+      },
+      {
+          "category" : "찜",
+          "name" : "계란찜",
+          "code" : "Img_125_",
+          "label" : "126"
+      },
+      {
+          "category" : "찜",
+          "name" : "김치찜",
+          "code" : "Img_126_",
+          "label" : "127"
+      },
+      {
+          "category" : "찜",
+          "name" : "꼬막찜",
+          "code" : "Img_127_",
+          "label" : "128"
+      },
+      {
+          "category" : "찜",
+          "name" : "닭볶음탕",
+          "code" : "Img_128_",
+          "label" : "129"
+      },
+      {
+          "category" : "찜",
+          "name" : "수육",
+          "code" : "Img_129_",
+          "label" : "130"
+      },
+      {
+          "category" : "찜",
+          "name" : "순대",
+          "code" : "Img_130_",
+          "label" : "131"
+      },
+      {
+          "category" : "찜",
+          "name" : "족발",
+          "code" : "Img_131_",
+          "label" : "132"
+      },
+      {
+          "category" : "찜",
+          "name" : "찜닭",
+          "code" : "Img_132_",
+          "label" : "133"
+      },
+      {
+          "category" : "찜",
+          "name" : "해물찜",
+          "code" : "Img_133_",
+          "label" : "134"
+      },
+      {
+          "category" : "탕",
+          "name" : "갈비탕",
+          "code" : "Img_134_",
+          "label" : "135"
+      },
+      {
+          "category" : "탕",
+          "name" : "감자탕",
+          "code" : "Img_135_",
+          "label" : "136"
+      },
+      {
+          "category" : "탕",
+          "name" : "곰탕_설렁탕",
+          "code" : "Img_136_",
+          "label" : "137"
+      },
+      {
+          "category" : "탕",
+          "name" : "매운탕",
+          "code" : "Img_137_",
+          "label" : "138"
+      },
+      {
+          "category" : "탕",
+          "name" : "삼계탕",
+          "code" : "Img_138_",
+          "label" : "139"
+      },
+      {
+          "category" : "탕",
+          "name" : "추어탕",
+          "code" : "Img_139_",
+          "label" : "140"
+      },
+      {
+          "category" : "튀김",
+          "name" : "고추튀김",
+          "code" : "Img_140_",
+          "label" : "141"
+      },
+      {
+          "category" : "튀김",
+          "name" : "새우튀김",
+          "code" : "Img_141_",
+          "label" : "142"
+      },
+      {
+          "category" : "튀김",
+          "name" : "오징어튀김",
+          "code" : "Img_142_",
+          "label" : "143"
+      },
+      {
+          "category" : "한과",
+          "name" : "약과",
+          "code" : "Img_143_",
+          "label" : "144"
+      },
+      {
+          "category" : "한과",
+          "name" : "약식",
+          "code" : "Img_144_",
+          "label" : "145"
+      },
+      {
+          "category" : "한과",
+          "name" : "한과",
+          "code" : "Img_145_",
+          "label" : "146"
+      },
+      {
+          "category" : "해물",
+          "name" : "멍게",
+          "code" : "Img_146_",
+          "label" : "147"
+      },
+      {
+          "category" : "해물",
+          "name" : "산낙지",
+          "code" : "Img_147_",
+          "label" : "148"
+      },
+      {
+          "category" : "회",
+          "name" : "물회",
+          "code" : "Img_148_",
+          "label" : "149"
+      },
+      {
+          "category" : "회",
+          "name" : "육회",
+          "code" : "Img_149_",
+          "label" : "150"
+      }
+  ]
+}

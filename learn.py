@@ -138,7 +138,7 @@ def inception(x, input_channel, conv_1_out, conv_3_reduce_out, conv_3_out, conv_
         b_conv_3 = tf.Variable(tf.constant(0.1, shape=[conv_3_out]))
         conv_3 = tf.nn.relu(tf.nn.conv2d(conv_3_reduce, w_conv_3, strides=[1, 1, 1, 1], padding='SAME') + b_conv_3)
 
-        # 3x3 conv
+        # 5x5 conv
         w_conv_5_reduce = tf.Variable(tf.truncated_normal(shape=[1, 1, input_channel, conv_5_reduce_out], stddev=5e-2))
         b_conv_5_reduce = tf.Variable(tf.constant(0.1, shape=[conv_5_reduce_out]))
         conv_5_reduce = tf.nn.relu(tf.nn.conv2d(x, w_conv_5_reduce, strides=[1, 1, 1, 1], padding='SAME') + b_conv_5_reduce)
@@ -236,26 +236,21 @@ def dcnn(x_image): # softmax 사용해서 loss 섞나?
     W_conv1 = tf.Variable(tf.truncated_normal(shape=[7, 7, 3, 64], stddev=5e-2))
     b_conv1 = tf.Variable(tf.constant(0.1, shape=[64]))
     h_conv1 = tf.nn.relu(tf.nn.conv2d(x_image, W_conv1, strides=[1, 2, 2, 1], padding='SAME') + b_conv1)
-    print('h_conv1 shape : ',h_conv1.get_shape())
 
     # max pool 1   > 56 -> 28 // 64 -> 64
     h_pool1 = tf.nn.max_pool(h_conv1, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME')
-    print('h_pool1 shape : ',h_pool1.get_shape())
 
     # conv 2    > 28 -> 28 // 64 -> 192
     W_conv2_1 = tf.Variable(tf.truncated_normal(shape=[1, 1, 64, 64], stddev=5e-2))
     b_conv2_1 = tf.Variable(tf.constant(0.1, shape=[64]))
     h_conv2_1 = tf.nn.relu(tf.nn.conv2d(h_pool1, W_conv2_1, strides=[1, 1, 1, 1], padding='SAME') + b_conv2_1)
-    print('h_conv2_1 shape : ',h_conv2_1.get_shape())
 
     W_conv2 = tf.Variable(tf.truncated_normal(shape=[3, 3, 64, 192], stddev=5e-2))
     b_conv2 = tf.Variable(tf.constant(0.1, shape=[192]))
     h_conv2 = tf.nn.relu(tf.nn.conv2d(h_conv2_1, W_conv2, strides=[1, 1, 1, 1], padding='SAME') + b_conv2)
-    print('h_conv2 shape : ',h_conv2.get_shape())
 
     # max pool 2   > 28 -> 14 // 192 -> 192
     h_pool2 = tf.nn.max_pool(h_conv2, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME')
-    print('h_pool2 shape : ',h_pool2.get_shape())
 
     #inception 1_a  > 14 -> 14 // 192 -> 256 (64 + 128 + 32 + 32)
     inception_1_a = inception(h_pool2, 192, 64, 96, 128, 16, 32, 32)
