@@ -16,5 +16,5 @@
     │
     ├── model                      # 결과 모델 저장
     ├── imgFetch.py                # 이미지 경로 리스트, one hot encoding label 리스트 생성 모듈
+    ├── requiremnets.txt           # 프로젝트에 필요한 라이브러리 파일들
     └── learn.py                   # 이미지 학습 모듈
-        
