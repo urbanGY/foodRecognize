@@ -33,14 +33,14 @@ def hangulFilePathImageWrite(filename, img, params=None):
 
 
 def readImg(category, name, code):
-    destPath = f'C:/Users/sfsfk/Desktop/develope/capstone2/image/resizeImg/{category}/{name}/'
+    destPath = f'C:/Users/sfsfk/Desktop/develope/capstone/image/resizeImg/{category}/{name}/'
     try:
         if not os.path.exists(destPath):
             os.makedirs(destPath)
     except OSError:
         print('Error: createing directory. '+ destPath)
 
-    basePath = f'{category}/{name}/'
+    basePath = f'resizeImg/{category}/{name}/'
     fileName = f'{code}'
 
     for i in range(0,1001):
@@ -56,7 +56,7 @@ def readImg(category, name, code):
         path = basePath + tmpFileName
         try:
             img = hangulFilePathImageRead(path)
-            resize_img = cv2.resize(img, (300, 300), interpolation=cv2.INTER_AREA)
+            resize_img = cv2.resize(img, (299, 299), interpolation=cv2.INTER_AREA)
         except:
             print("except in resize file : ",tmpFileName)
             continue
