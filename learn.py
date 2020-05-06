@@ -10,6 +10,7 @@ from layers.max_pool import max_pool
 from layers.fc_layer import fc_layer
 
 from layers.inception import inception_A, inception_B, inception_C
+from layers.reduction import reduction_A, reduction_B
 from layers.avg_pool import avg_pool
 
 from tensorflow.python.client import device_lib
@@ -79,8 +80,20 @@ def dcnn(x):
     concat_11 = tf.concat([conv_10, pool_10], axis=3, name='concat_11') # 71x71x192
     print("concat 11 shape : ",concat_11.shape)
 
-    inception_a_12 = inception_A(concat_11, 384, 'inception_a_12')
+    inception_a_12 = inception_A(concat_11, 384, 'inception_a_12') # 4번 반복
     print("inception_a_12 shape : ",inception_a_12.shape)
+
+    reduction_a_13 = reduction_A(inception_a_12, 384, 'reduction_a_13')
+    print("reduction_a_13 shape : ",reduction_a_13.shape)
+
+    inception_b_13 = inception_B(reduction_a_13, 1024, 'inception_b_13')
+    print("inception_b_13 shape : ",inception_b_13.shape)
+
+    reduction_b_14 = reduction_B(inception_b_13, 1024, 'reduction_b_14')
+    print("reduction_b_14 shape : ",reduction_b_14.shape)
+
+    inception_c_14 = inception_C(reduction_b_14, 1536, 'inception_c_14')
+    print("inception_c_14 shape : ",inception_c_14.shape)
     return concat_11
 
 def test():
