@@ -90,7 +90,7 @@ def dcnn(x, keep_prob, img_result):
 # 레이어 모두 구성, BATCH 세팅 코드 다 패치쪽으로 집어넣고 돌아가는지 확인해보기
 def test():
     #all을 하면 모든 이미지 다 가져온다. 뒤의 16은 한번 배치 할 때 가져올 크기
-    iterator, next_element = get_iterator_next_element('한과',8)
+    iterator, next_element = get_iterator_next_element('all',32)
 
     img_width = 299
     img_height = 299
@@ -110,6 +110,10 @@ def test():
     correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(y, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
+    saver = tf.train.Saver()
+    model_path = 'export_model/'
+    file_name = '/g_4.ckpt'
+
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         sess.run(iterator.initializer)
@@ -120,7 +124,8 @@ def test():
                 train_loss = sess.run(loss, feed_dict={x: image, y: label, keep_prob:1.0})
                 print("\nstep %d  : train accuracy : %.4f, train loss end : %.4f"%(i,train_accuracy,train_loss))
             sess.run(train_step, feed_dict={x: image, y: label, keep_prob: 0.8})
-
+            if i%5000 == 0:
+                saver.save(sess, model_path+str(i)+file_name)
 if __name__ == "__main__":
     test()
     print("finish!")
